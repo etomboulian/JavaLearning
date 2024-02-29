@@ -15,7 +15,31 @@ if (condition) statement1;
 else statement2;
 ```
 
-Where condition is an expression that returns a boolean, and the else is optional.
+Where condition is an expression that returns a boolean, and the else is optional. If `condition` is true then statement1 is executed; otherwise statement2 is executed. One of the statements is guaratueed to execute.
+
+#### Nested ifs
+
+A nested if is an if statemetn that is the target of another if or else. With nested ifs, the main thing to recall is that an else statement always refers to the nearest if statement that is within the same block as the else and that is not already assicated with an else
+
+```java
+if(i == 10) {
+    if(j < 20) a = b;
+    if(k > 100) c = d;  // this if
+    else a = c;         // goes with this else
+}
+else a = d;             // this else refers to the top level if
+```
+
+#### The if-else-if Ladder
+
+The if statements are executed from the top down, as soon as one condition controlling the if is true, then that statement is executed and the rest is bypassed. If no condition is true then the statements in the else will be executed. Else acts as a default condition.
+
+```java
+if(condition) statement;
+else if (condition) statement;
+else if (condition) statement;
+else statement;
+```
 
 [IfElse](code/IfElse.java)
 
