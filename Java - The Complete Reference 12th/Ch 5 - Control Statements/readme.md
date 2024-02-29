@@ -51,3 +51,40 @@ The value of the expression is compared with each of the values in the case stat
 A more realistic usage of the switch with fall through is an improved version of the seasons program from before [Switch](code/Switch.java). We can also use a string to control the switch statement [StringSwitch](code/StringSwitch.java). Being able to use strings in a switch statement streamlines many situations, often its easier than using equal set of if/else statements.
 
 #### Nested swtich
+
+A switch can be used as part of the staetment sequence of an outer switch, this is called a nested swtich. Cases are evaluated in the inner switch independantly of the outer switch. 
+
+```java
+switch(count) {
+    case 1: 
+        switch(target) {
+            case 0:
+                System.out.println("target is a zero");
+                break;
+            case 1:
+                System.out.println("target is one");
+                break;
+        }
+        break;
+    case 2:
+        /// more code
+}
+```
+
+When the compiler copiles a switch statement it will inspect each of the case constratins and create a "jump table" that it will use for selecting the path of execution. Thus if you need to select among a large group of values a switch statement will run much faster than the equivalent logic coded using a sequence of if-elses. We can do this because the compiler knows the case constraints are all the same type and must only be compared for equality. 
+
+### Iteration Statements
+
+Java's iteration statements are for, while and do-while. These create what we call loops. A loop repeatedly executes a block of code until a termination condition is met. 
+
+#### while
+
+The while loop will repeat a block of code while its controlling expression is true
+
+```java
+while(condition) {
+    // body of loop
+}
+```
+
+The condition can be any boolean expression. The body of the loop is executed until the condition evaluates to false. See [While](code/While.java)
