@@ -50,9 +50,29 @@ Providing many forms of ctors is usually required to allow objects to be constru
 
 ## A Closer Look at Argument Passing
 
+In general there are two ways that a programming language can pass an argument to a subroutine. The first way is *call-by-value*. This approach copies the value of an argument into the formal parameter of the subroutine. Changes made to the parameter of the subroutine have no effect on the argument. 
+
+The second way that an argument can be passed is *call-by-reference*. In this approach a reference to the argument is passed to the parameter; within the subroutine, this reference is used to access the actual argument. This means that changes made to the parameter will affect the argument used to call the subroutine. 
+
+Although Java uses call-by-value to pass all arguments, the precise effect differs between whether a primitive type or a reference type is passed. 
+
+When you pass a primitive type to a method, it is passed by value. A copy of the argumetn is made, and what occurs to the parameter that receives the argument has no effect outside the method. Consider the following program [CallByValue](code/CallByValue.java). As you can see the operations that occur inside meth() have no effect on the values of a and b used in the call. 
+
+When you pass an object to a method, the situation changes, because objects exhibit call-by-reference behaviour. When you create a variable of a class type, you are only creating a reference ot an object. When you pass this reference to a method, the parameter that receives it will refer to the same object as that referred to by the object. Consider the following program [PassObjRef](code/PassObjRef.java) as you can see the actions inside meth() have affected the object used as an argument.
+
+REMEMBER: When an object reference is passed to a method, the reference itself is passed by use of call-by-value. However, since the value being passed refers to an object, the copy of that value (the memory address) will still refer to the same object that is corresponding argument does
+
 ## Returning Objects
 
+A method can return any type of data, including class types that you create. In the following program [RetOb](code/RetOb.java) the incrByTe() method returns an object in which the value of a is ten greater than it is in the invoking object
+
+Each time incrByTen() is invoked, a new object is created and a reference to it is returned to the calling routine. 
+
+Since all objects are dynamically allocated using new, you don't need to worry about an object going out-of-scope because the method in which is was created terminates. The object will continue to exist as long as there is a reference to it somewhere in your program. When there are no references to it, the object will be reclaimed the next time garbage collection takes place. 
+
 ## Recursion
+
+Java supports Recursion.
 
 ## Introducing Access Control
 

@@ -171,7 +171,7 @@ When using the default ctor all non-initialized instance variables will have the
 
 ### Parameterized Constructors
 
-While the Box ctor does inititalize a box, it would be more helpful if we could set the dimensions of the box when we initialize it. [BoxDemo7](code/BoxDemo7.java) contains a version that enables us to do this. 
+While the Box ctor does inititalize a box, it would be more helpful if we could set the dimensions of the box when we initialize it. [BoxDemo7](BoxDemo7.java) contains a version that enables us to do this. 
 
 The output from this program is
 
@@ -218,7 +218,7 @@ When no reference to an object exist, that object is assumed to be unreachable, 
 
 Now we look at a more practical example of a class. A stack stores data using first-in, last-out ordering. Like a stack of plates. Stacks usually implement only two methods, push and pop. To put an item on the stack, we push it onto the stack, to take an item off the stack we use pop to pop the item off the stack. 
 
-[Stack](code/Stack.java) The stack class defines two data items, two methods and a ctor. The stack of integers is held by the array stack. This array is indexed by the variable topOfStack, which always containst he index of the top of the stack.
+[Stack](Stack.java) The stack class defines two data items, two methods and a ctor. The stack of integers is held by the array stack. This array is indexed by the variable topOfStack, which always containst he index of the top of the stack.
 
 One issue which we will address later is that the array that holds the stack can be manipulated from outside the stack class which leaves it open for misuse. 
 
