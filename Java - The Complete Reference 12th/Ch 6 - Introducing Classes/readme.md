@@ -52,7 +52,7 @@ mybox.width = 100;
 
 This tells the compiler to assign the copy of width that is contained within the mybox object the value of 100. The dot operator is used to access both instance variables and methods. 
 
-Here is a complete program that uses the Box class [BoxDemo](code/BoxDemo.java) and another that uses multiple instances of the Box class. [BoxDemo2](code/BoxDemo2.java). We can see from this example that mybox1's data is completely separate from the data in mybox2.
+Here is a complete program that uses the Box class [BoxDemo](BoxDemo.java) and another that uses multiple instances of the Box class. [BoxDemo2](BoxDemo2.java). We can see from this example that mybox1's data is completely separate from the data in mybox2.
 
 ## Declaring Objects
 
@@ -119,13 +119,13 @@ Methods that return other than void must have a return statement where we specif
 
 ### Adding a method to the Box Class
 
-It might have occured that the computation of a box's volume was something best handled by the Box class rather than the BoxDemo class. To do this we add a method to Box as shown here [BoxDemo3](code/BoxDemo3.java)
+It might have occured that the computation of a box's volume was something best handled by the Box class rather than the BoxDemo class. To do this we add a method to Box as shown here [BoxDemo3](BoxDemo3.java)
 
 We use the volume method on each Box instance to tell it to calculate its volume and report it. Notice that inside the volume method that the instance variables width, depth, and height are referred to without preceeding them with an object name or the dot operator. When a method uses it's class's instance variables it can do so without explicit referenc to an object. 
 
 ### Returning a value
 
-A better way to implement volume() is to have it compute the volume of the box and to return the result to the caller. [BoxDemo4](code/BoxDemo4.java) does just this. When volume() is called it is put on the right side of an assignment statement. On the left side is a variable that receives the value returned by the method call. 
+A better way to implement volume() is to have it compute the volume of the box and to return the result to the caller. [BoxDemo4](BoxDemo4.java) does just this. When volume() is called it is put on the right side of an assignment statement. On the left side is a variable that receives the value returned by the method call. 
 
 2 things to understand about returning values. 
 1. the type of data returned by a method must be compatible with the return type of the method
@@ -155,13 +155,13 @@ An agument is a value tha tis passed to a method when it is invoked.
 
 We can use a parameterized method to improve the Box class. For example to set the dimensions since setting them from outside the class is bad practice and error prone, and makes it so that we cannot change the box class internals. 
 
-We implemente a better approach in [BoxDemo5](code/BoxDemo5.java) where we use the setDim() method to set the dimensions for each box. 
+We implemente a better approach in [BoxDemo5](BoxDemo5.java) where we use the setDim() method to set the dimensions for each box. 
 
 ## Constructors
 
 It would however be better to do all of the setup that we need at the time that the object is first created. Initialization of an object is performed through the object's constructor. The constructor is called automatically when the object is created, before the new operator completes. 
 
-Constructors don't have a return type, because the implicit return type of a ctor is the class type itself. We can rework the Box example so that the dimensions of a box are automatically initialized when the object is constructed. We do this by replacing setDim() with a constructor. [BoxDemo6](code/BoxDemo6.java)
+Constructors don't have a return type, because the implicit return type of a ctor is the class type itself. We can rework the Box example so that the dimensions of a box are automatically initialized when the object is constructed. We do this by replacing setDim() with a constructor. [BoxDemo6](BoxDemo6.java)
 
 We can see that box boxes use the Box constructor, but since the constructor only allows us to construct a cube of size 10 all boxes are the same size. 
 
