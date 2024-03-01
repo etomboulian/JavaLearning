@@ -36,7 +36,7 @@ The data defined within a class is called instance variables. The code is contai
 
 ### A Simple Class
 
-[Box](code/Box.java) is a sample class Box with some data but no methods. This class defines a new data type called Box, we use this to declare objects of type Box.
+[Box](Box.java) is a sample class Box with some data but no methods. This class defines a new data type called Box, we use this to declare objects of type Box.
 
 To create an actual box object we use a statement like the one that follows to create a Box object. 
 
