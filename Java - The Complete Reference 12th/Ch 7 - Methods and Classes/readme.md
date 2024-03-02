@@ -128,16 +128,158 @@ In addition to fields both method parameters and local variables can be declared
 
 ## Arrays revisited
 
+Arrays are implemented as objects. Because of this arrays have an attribute called length, which will always hold the size of the array. Here an example demonstrating this [Length](code/Length.java). Each array tracks and can show its own length. Length doesn't have to do with the number of elements in use, only the number of elements it can hold. [TestStack](code/TestStack.java)
+
 ## Introducing Nested and Inner Classes
+
+It is possible to define a class within another class; such classes are known as nested classes. The scope of a nested class is bounded by the scope of its enclosing class. If class B is defined within class A, then B does not exist independently of A. A nested class has access to the members, including private members of the class in which it is nested. However the enclosing class does not have access to the members of the nested class.
+
+There are two types of nested classes `static` and `non-static`.
+
+A static nested class is one that has the static modifier applied and because it is static it must access the non static members of its enclosing class through an object. It cannot refer to non-static members of its enclosing class directly.
+
+The second type of nested class is the inner class. An inner clas sis a non-static nested class. It has access to all of the variables and methods of its outer class and may refer to them directly in teh same way that other non-static members of the outerclass can do.
+
+The following demonstrates an example of defining and using an inner class [InnerClassDemo](code/InnerClassDemo.java) An inner class named Inner is defined within the scope of class Outer, so any code in class Inner can directly access the variable outer_x.
+
+An instance of Inner can be created only in the context of class Outer. The java compiler will give an error otherwise. Members of the inner class are known only within the scope fo the inner class and may not be used by the outer class.
+
+It is possible to define inner classes within any block scope. For edxample you can define a nested class within the block defined by a method or eve wtihin the body of a for loop as in the following demo.
+
+```java
+class Outer {
+    int outer_x = 100;
+
+    void test() {
+        for(int i=0; i<10; i++) {
+            class Inner {
+                void display() {
+                    System.out.println("display: outer_x = " + outer_x);
+                }
+            }
+            Inner inner = new Inner();
+            inner.display();
+        }
+    }
+}
+
+class InnerClassDemo {
+    public static void main(String[] args) {
+        Outer outer = new Outer();
+        outer.test();
+    }
+}
+```
 
 ## Exploring the String Class
 
+String is probably the most commonly used class in Java's class library. The obvious reason for this is that strings are an important part of programming. Since string is a class you can create an object of type String. String constants are String objects.
+
+```java
+System.out.println("This is a String, too");
+```
+
+The string constand is a String object.
+
+Strings are immutable. Once a String object is created, its contents cannot be altered. Seems like a serious restriction but it is not because
+
+- If you need to change a string, you can always create a new one that contains the modifications
+- Java defines peer classes of String, StringBuffer and String Builder which allow strings to be altered, so all of the normal string manipulations can be made through these.
+
+Easist way to construct a string is a statement such as
+
+```java
+String myString = "this is a test";
+```
+
+Once a string object is created it can be used anywere that a string is allowed. Java defines only one operator for String objects: +. It is used to concatenate two strings. For example:
+
+```java
+String myString = "I" + " like " + "Java.";
+```
+
+[StringDemo](code/StringDemo.java) shows a demo of things we can do with Strings.
+
+The String calss contains several methods that can be used. Strings can be tested for equality using equals(). The length of a string can be accessed using the length() method. The character at a specific index of a string can be accessed by calling charAt(). [StringDemo2](code/StringDemo2.java) demos using these methods on Strings.
+
+You can also have arrays of strings such as in [StringDemo3](code/StringDemo3.java). String arrays play an important part in many Java programs.
+
 ## Using Command Line Arguments
+
+Sometimes we want to pass information into a program when we run it. This is accomplished through command-line arguments to main(). To access the command-line arguments inside a Java program is easy - they are stored as strings in a String arry passed to the args parameter of main().
+
+The following progrma displays all of the command-line arguments that it is called with
+
+```java
+class CommandLine {
+    public static void main(String[] args) {
+        for(int i = 0; i < args.length; i++)
+            System.out.println("args[" + i + "]: " + args[i]);
+    }
+}
+
+```
+
+The output of this program looks like
+
+```
+java CommandLine.java this is a test 100 -1
+args[0]: this
+args[1]: is
+args[2]: a
+args[3]: test
+args[4]: 100
+args[5]: -1
+```
 
 ## Varargs: Variable length arguments
 
-### Overloading the Vararg Methods
+Modern versions of Java include a feature that simplifies the creation of methods that need to take a variable number of arguments. This feature is called `varargs`. A method that takes a variable number of arguments is called a variable-arity method, or simply a varargs method.
+
+Before we had varargs we would either create overloaded methods for each variation on how we can call the method, or we would put the variable args into an array and pass the array into the method; as demonstrated in [PassArray](code/PassArray.java). In this program the method vaTest() receives its argument through the array variable v, this enables vaTest() to take an arbitrary number of arguments; however it must be packed into an array prior to calling vaTest()
+
+A variable length argument is specified by three dots. We can rewrite vaTest() using a vararg as `static void vaTest(int ...v)`. This syntax tells the compiler that vaTest() can be called with zero or more arguments, as a result v is implicitly an array of type int, so within the method v is accessed using the normal array syntax. [VarArgs](code/VarArgs.java) is rewritten to use varargs where the output is the same as the original version.
+
+v is operated on as an Array because v is an array. The varargs sytanx tells the compiler that a variable number of arguments may be used and that these arguments will be stored in the array referred to by v.
+
+A method can have "normal parameter along with a variable-length parameter, but the variable length parameter must be the last parameter declared by the method.
+
+```java
+int doIt(int a, int b, double c, int ... vals) {}
+```
+
+In this case the first 3 args are matched iwth the parameters, and any remaining are stuffed into the vals array. See [VarArg2](code/VarArg2.java) for an example using both normal args and varargs
+
+### Overloading Vararg Methods
+
+A method that takes a variable-length argument can also be overloaded, [VarArgs3](code/VarArgs3.java) shows a program that overloads vaTest() 3 times. This demonstrates both ways that a varargs method can be overloaded.
+
+1. The type of its vararg parameter can differ
+2. Adding one or more normal parameters
+
+Note: a varargs method can also be overloaded by a non-vararg method. vaTest(int x) is a valid overload of vaTest(int ...) in the previous program. The non varargs version is invoked only when one int argument is present, if more, then the vararg version will be chosen.
 
 ### Varargs and Ambiguity
 
+Unexpected errors can result when overloading a method that takess a variable-length argument. This happens because it is possible to create an ambiguous call to an overloaded varargs method. Consider the program in [VarArgs4](code/VarArgs4.java) Because the vararg parameter can be empty, it is unclear whether the correct version to call is vaTest(int ...) or vaTest(boolean ...) so it yields an error.
+
+Here is another ambiguous case
+
+```java
+static void vaTest(int ... v) {}
+static void vaTest(int n, int ... v) {}
+```
+
+If we have these functions and we make the following call `vaTest(1)` it is inherently unclear which version of the method to choose. This the situation is ambigous, and will result in an ambiguity error.
+
 ## Local Variable Type Inference with Reference Types
+
+One of the benefits to LVTI is the ability to streamline code. The tradtional sytanx for declaring a FileInputStream is the following
+
+`FileInputStream fin = new FileInputStream("Test.txt");`
+
+This can be shortened using type inference as follows:
+
+`var fin = new FileInputStream("test.txt")`
+
+[RefVarDemo](code/RefVarDemo.java) Here the type of mc will be inferered to be MyClass because that is the type of the initializer.
