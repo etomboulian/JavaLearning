@@ -6,7 +6,7 @@ A class that is inherited is called a superclass. The class that does the inheri
 
 ## Inheritance Basics
 
-In Java you inherit from another class using the extends keyword. The following program creates a superclass called A and a subclass called B [SimpleInheritance](code/SimpleInheritance.java).
+In Java you inherit from another class using the extends keyword. [SimpleInheritance](code/SimpleInheritance.java) creates a superclass called A and a subclass called B .
 
 The subclass B includes all of the members of its superclass A. This is why subOb can access i and j and call showij(). Also inside sum() i and j can be referred to directly as if they were part of B.
 
@@ -22,11 +22,11 @@ Each subclass can only have one superclass. Java supports only single inheritanc
 
 ### Member Access and Inheritance
 
-Altought a subclass includes all of the members of its superclass, it cannot access those members of the superclass that have been declared as private. [Access](code/Access.java) A class member that has been declared as private will remain private to its calss. It is not accessible by any code outside its class, including subclasses
+Altought a subclass includes all of the members of its superclass, it cannot access those members of the superclass that have been declared as private. This is demonstrated in [Access](code/Access.java). A class member that has been declared as private will remain private to its calss. It is not accessible by any code outside its class, including subclasses
 
 ### A More Practical Example
 
-Here we will further develop the Box class by extending it to include a fourth component called weight. [DemoBoxWeight](code/DemoBoxWeight.java) BoxWeight inherits all of the characteristics of Box and adds them to the weight component. We can extend Box to have any new feature that we need it to have
+Here we will further develop the Box class by extending it to include a fourth component called weight in [DemoBoxWeight](code/DemoBoxWeight.java). BoxWeight inherits all of the characteristics of Box and adds them to the weight component. We can extend Box to have any new feature that we need it to have
 
 ```java
 class ColorBox extends Box {
@@ -45,7 +45,7 @@ Once you have created a supercalss that defines the general aspects of an object
 
 ### A Superclass Variable Can Reference a Subclass Object
 
-A reference variable of a superclass can be assigned a reference to any subclass derived from that superclass. See [RefDemo](code/RefDemo.java) Since BoxWeight is a subclass of Box, it is permissable to assign plainbox a reference to the weightbox object.
+A reference variable of a superclass can be assigned a reference to any subclass derived from that superclass. See [RefDemo](code/RefDemo.java) for en example that shows this. Since BoxWeight is a subclass of Box, it is permissable to assign plainbox a reference to the weightbox object.
 
 Importantly it is the type of the reference variable, not the type of the object that it refers to that determines what members can be accessed. When a reference to a subclass object is assigned to a superclass reference, you will only have access to only the parts of the class that is in the superclass.
 
