@@ -89,13 +89,36 @@ When a subclass calls super(), it is calling the ctor of its immediate superclas
 
 The second form of super acts somewhat like this, except that it always refers to the superclass of the subclass in which it is used. This usage has the folllowing form `super.member` where member can be either a method or an instance variable.
 
-This usage is most applicable to situations in which member names of a subclass hide members by the same name in the superclass. Consider the example in [UseSuper](code/UseSuper.java) Although the variable i in B hides the i in A, super allows access to the i defined int eh superclass.
+This usage is most applicable to situations in which member names of a subclass hide members by the same name in the superclass. Consider the example in [UseSuper](code/UseSuper.java) Although the variable i in B hides the i in A, super allows access to the i defined in teh superclass.
 
 ## Creating a Multilevel Hierarchy
 
+To this point we have only seen hierarchies which contain a superclass and subclass, however hierarchies can build on as many layers of inheritance as you want. We demonstrate a multi level hierarchy with [DemoShipment](code/DemoShipment.java)
+
+This example shows another important point: super() always refers to the ctor in the closest superclass. The super() in Shipment calls the ctor in BoxWeight. The super() in BoxWeight calls the ctor in Box.
+
 ## When Constructors are Executed
 
+When a class hierarchy is created; what order are the constructors for the classes that make up the hierarchy executed?
+
+In a class hierarchy, constructors complete their execution in order of derivation, frrom superclass to subclass. Since super() must be the first statment executed in a subclass ctor this order i sthe same whether or not super is used. See [CallingCons](code/CallingCons.java) for a demo that shows this, this shows that the ctors are executed in order of derivation.
+
 ## Method Overriding
+
+In a class hierarchy, when a method in a subclass has the same name and type signature as a method in its superclass, then the method in the subclass is said to _override_ the method in the superclass. When an overriding method is called it will always refer to the version defined in the subclass. The version in the superclass will be hidden as in [Override](code/Override.java). If we wish to call show() from A then we must use super to enable this.
+
+```java
+class B extends A {
+    int k;
+
+    B(int a, int b, int c) {
+        super.show();
+        System.out.println("k: " + k);
+    }
+}
+```
+
+Where super.show() calls the superclass version of show(). Method overriding occurrs only when the names and the type signatures of the two methods are identical, if they are not then they are simply overloaded. Consider the example in [Override2](code/Override2.java). The version of show in B takes a string parameter which makes its signature different from the one in A; therefore it is not overriding, but overloaded.
 
 ## Dynamic Method Dispatch
 
