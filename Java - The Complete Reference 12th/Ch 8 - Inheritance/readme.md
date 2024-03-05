@@ -219,6 +219,10 @@ class B extends A { // ERROR!! Cannot subclass A
 
 ## Local Variable Type Inference and Inheritance
 
+Recall that a superclass reference can refer to a derived class object, and this is part of Java's support for polymorphism. However when using LVTI, the inferred type of a variable is based on the declared type of its initializer. If the initializer is of the superclass type, that will be the inferred type of the variable.
+
+[TypeInferenceAndInheritance](code/TypeInferenceAndInheritance.java) gives an example which demonstrates this. Because the function which returns one of the polymorphic classes has a return type of MyClass, every object reference created by a return value from that function will be MyClass regardless if the actual object is a derived class object.
+
 ## The Object Class
 
 There is one special class, Object, defined by Java. All other classes are subclasses of Object. Object is a superclass of all other classes. A reference variable of type Object can refer to an object of any other class.
@@ -236,3 +240,9 @@ Object defines the following methods:
 | void notifyAll()                                                                                 | Resumes execution of all threads waiting on the invoking object  |
 | String toString()                                                                                | Returns a string that describes the object                       |
 | void wait() <br> void wait(long milliseconds) <br> void wait(long milliseconds, int nanoseconds) | Waits on another thread of execution                             |
+
+The methods getClass(), notify(), notifyAll(), and wait() are declared as final. The others all may be overridden.
+
+The equals() method compares two objects; it returns true if the objects are equal, and false otherwise. The exact definition of equality can vary depending on the objects being compared.
+
+The toString() method returns a string that contains a description
