@@ -122,18 +122,117 @@ Where super.show() calls the superclass version of show(). Method overriding occ
 
 ## Dynamic Method Dispatch
 
+Method overriding forms the basis for one of Java's most powerful concepts: dynamic method dispatch. DMD is the mechanism by which a call to an overriden method is resolved at run time rather than at compile time. DMD is important because it is how Java implements run-time polymorphism.
+
+A superclass reference varaiable can refer to a subclass object. Java uses this to reolve calls to overriden methods at run time.
+
+When an overriden method is called through a superclass reference, Java determines which version of that method to execute based on the type of the object being referred to a the time the call occurrs. Thus the determination of which actual method to call is made at run-time.
+
+The type of the object being referred to is what determins what version of an overriden method will be executed. Therefore if a superclass contains a method that is overriden by a subclass, a different version of the method will be executed based on the type that is pointed to. See [Dispatch](code/Dispatch.java) for an example showing this. The version of the method that is called depends on the actual objct we are calling it on, not the type of the reference.
+
 ### Why Overridden Methods?
+
+Overridden methods allow Java to support run-time polymorphism. Polymorphism enables a general class to specify methods that will be common to all of its derivatives, while allowing subclasses to define the specific implementation of some or all of those methods. One way that Java implements the "one interface, multiple methods" aspect of polymorphism.
+
+The superclass provides all elements that a subclass can use directly. It also defines those methodst aht the derived class must implement on its own. This allows the subclass to define its own methods, but enforces a consistent interface.
+
+The abilty of existing code libraries to call methods on instances of new classes without recompiling while maintaining a clean abstract inteface is a profoundly powerful tool.
 
 ### Applying Method Overriding
 
+The following program creates a supercalss called Figure that stores the dimensions of a 3d object. It also defines area().
+
+In [FindAreas](code/FindAreas.java) 2 Sub classes of Figure are defined, Rectangle and Triangle, each provides its own implementation of area() so that it can return the correct area based on the actual shape.
+
 ## Using Abstract Classes
+
+There are situations in which you will want to define a superclass that declares the structure of a given abstration without providing a complete implementation of every method. One reason is when a superclass is unable to create a meaningful implementation for a method. For example with Figure from the previous example, the definition of area() is only a placeholder, it doesn't make sense and it will not compute the area of a Figure.
+
+This can be handled by either printing a warning message as we did in the previous example, but a better way to handle this is to use the abstract method.
+
+You can require that certain method be overridden by subclasses by specifying the abstract type modifier. To declare an abstract method we use this general form.
+
+```java
+abstract type name(parameter-list);
+```
+
+Intentionally, no method body is present. Any class that contains one or more abstract methods must also be declared abstract. To declare a class as abstract simply use the abstract keyword in front of the class keyword in the class declaration.
+
+There can be no objects of an abstract class. An abstract class cannot be directly instantiated with the new operator. It would be useless to allow since the abstract class is not fully defined. Also you cannot declare abstract constructors or abstract static methods.
+
+Any subclass of an abstract class must either implement all of the abstract methods in the superclass, or be declared abstract itself.
+
+[AbstractDemo](code/AbstractDemo.java) shows a simple example of a class with an abstract method, followed by a class that impelments that method. Abstract classes may include as much implementation as they see fit.
+
+Although abstract classes cannot be used to instantiate objects, they can be used to declare object references, since Java' approach to run-time polymorphim is implemented via the use of superclass references.
+
+Using an abstract class we can include the Figure class shown earlier, since there is no meaninful concept of area for an undefined two-dimensional figure, so [AbstractAreas](code/AbstractAreas.java) declares area as abstract.
 
 ## Using final with Inheritance
 
+The keyword final has three uses.
+
+1. It can be used to create the equivalent of a named constant
+2. It prevents a method from being overriden
+3. It prevents a class from being inherited from.
+
 ### Using final to Prevent Overriding
 
+To disallow a method from being overriden, specify final as a modifier at the start of its declaration. Methods declared as final cannot be overridden.
+
+```java
+class A {
+    final void meth() {
+        System.out.println("This is a final method");
+    }
+}
+
+class B extends A {
+    void meth() {
+        System.out.println("Illegal"); // this is an Error
+    }
+}
+```
+
+Because meth() is declared as `final`, it cannot be overridden in B. It will be a compile time error if you do.
+
+Methods declared as `final` can sometimes provide a performance boost as the compiler is free to inline calls to them because it knows that they will not be overridden by a subclass.
+
+Inlining is an option only with `final` methods. Normally Java resolves calls to methods dynamically, at run time. This is called _late binding_. However since `final` methods cannot be overridden, a call to one can be resolved at compile time. This is called _early binding_.
+
 ### Using final to Prevent Inheritance
+
+Sometimes we want to prevent a class from being inherited. To do this we preceede the class declaration with final. Declaring a class as final implicitly declares all of its methods as final too.
+
+It is illegal to declare a class as both abstract and final since an abstract class is incomplete and requires subclassing to provide complete implementation.
+
+```java
+final class A {
+    //
+}
+
+// The following class is illegal
+class B extends A { // ERROR!! Cannot subclass A
+    //
+}
+```
 
 ## Local Variable Type Inference and Inheritance
 
 ## The Object Class
+
+There is one special class, Object, defined by Java. All other classes are subclasses of Object. Object is a superclass of all other classes. A reference variable of type Object can refer to an object of any other class.
+
+Object defines the following methods:
+
+| Method                                                                                           | Purpose                                                          |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| Object clone()                                                                                   | Creates a new object that is the same as the object being cloned |
+| boolean equals(Object object)                                                                    | Determines whether one object is equal to another.               |
+| void finalize()                                                                                  | Called before an unused object is recycled (Before JDK9)         |
+| Class<?> getClass                                                                                | Obtains the class name of an object at runtime                   |
+| int hashCode()                                                                                   | Returns the hash code associated with the invoking object        |
+| void notify()                                                                                    | Resumes execution of a thread waiting on the invoking object     |
+| void notifyAll()                                                                                 | Resumes execution of all threads waiting on the invoking object  |
+| String toString()                                                                                | Returns a string that describes the object                       |
+| void wait() <br> void wait(long milliseconds) <br> void wait(long milliseconds, int nanoseconds) | Waits on another thread of execution                             |
