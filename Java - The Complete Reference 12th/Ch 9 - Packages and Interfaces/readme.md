@@ -282,17 +282,63 @@ Here the class **Incomplete** does not implement the **callback()** method and m
 
 ### Nested Interfaces
 
+An interface can be declared as a member of a class or another interface. Such an interface is called a _member interface_ or a _nested interface_. A nesteed interface can be declared as **public**, **private** or **protected**. This is different from a top level interface which must be declared as public or use the default access level. When a nested interface is used outside of its enclosing scope, it must be qualified by the name of the class or interface of which it is a member. See [NestedIfDemo](code/NestedIfDemo.java) for an example of this.
+
+#### Applying Interfaces
+
+Looking at a more practical example [IFTest](code/IFTest/). Previously we implemented a Stack class, but there are many ways that a stack can be implemented. However no matter how the stack is implemented the interface to the stack remains the same. That is the methods **push()** and **pop()** define the interface to the stack independently of the details of the implementation.
+
 ### Variables in Interfaces
+
+Interfaces can be used to import shared constants into multiple classes by simply declaring an interface that contains variables that are initialized to the desired values. When you implement that interface, all of those variable names will be in scope as constants.
+
+The next example [AskMe](code/AskMe) uses thie technique to implement an automated "decision maker". Inside each class we refer to the named constants that are defined in the implemented interface. Note that because we are using **Random** the output will vary each time we run the program.
 
 ### Interfaces can be Extended
 
+One interface can inherit another by use of the keyword **extends**, its the same syntax for inheriting classes. When a class implements an interface that inherits another interfaace, it must provide implementations for all methods required by the interface inheritance chain. [IFExtend](code/IFExtend)
+
 ## Default Interfafce Methods
+
+Prior to JDK8, an interface could not define any implementation whatsoever. Since then that has changed with the addition of a new capability to interfaces called the default method. A default method allows you to define a default implementation for an interface method.
+
+A major motivation for the default method was to provide a means by which interfaces could be added to without breaking existing code. If a new method was added to a popular widely used interface, then the addition of that method would break existing usage of that interface since all classes that impelement it would need to add an implementation for the new method. Adding a method with a default implementation would not cause pre-existing code to break in this way.
+
+The addition of default methods does not change a key aspect of interface, its in ability to maintain state information. The major difference between a class and an interface is that a class can maintain state information.
 
 ### Default Method Fundamentals
 
+An interface default method is defined similar to the way a method is defined by a **class**. The primary difference is that the declaration is preceeded by the keyword **default**. [DefaultMethodDemo](code/DefaultMethodDemo).
+
+It is possible and common for an implementing class to define its own implmentation of a default method, as we do with MyIFImp2, then when getString() is called, a different string is returned.
+
 ### A More Practical Example
 
+Now we return to the IntStack interface. Assume that IntStack is widely used and that many programs rely on it. Further assume that we now want to add a method to IntStack that clears the stack, enabling the stack to be re-used.
+
+We want to evolve the IntStack interface to add new functionallity, but we don't want to break any preexisting code. Before this was impossible, but with the inclusion of default methods it is now easy to do.
+
+```java
+interface IntStack {
+    void push(int item);
+    int pop();
+
+    default void clear() {
+        System.out.println("Clear() not implemented")
+    }
+}
+```
+
+The default method gives us a way to
+
+- gracefully evolve interfaces over time
+- provide optional functionality without requiring that a class provide a placeholder implementation when that functionality is not needed.
+
+In real world code, clear() would have thrown an exception, rather than displaying an error message.
+
 ### Multiple Inheritance Issues
+
+Java does not support the multiple inheritance of classes.
 
 ## Use static Methods in an Interface
 
