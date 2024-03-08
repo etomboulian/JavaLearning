@@ -338,12 +338,84 @@ In real world code, clear() would have thrown an exception, rather than displayi
 
 ### Multiple Inheritance Issues
 
-Java does not support the multiple inheritance of classes.
+Java does not support the multiple inheritance of classes. Since an interface can now include default methods, once might wonder if an interface provides a backdoor into Multiple Inheritance. It does not. A class can contain state information while an interface cannot.
+
+However we can cause a name conflict issue if a class implements two interfaces, each of which provides a default implementation for a method of the same name.
+
+- First a class implementation will take priority over a default interface implemenation
+- Second a class which implements two interfaces that both have teh same default method, but does not override that method, then an error will result
+- In cases where one interface in herits another, with both defining a common default method, the inheriting interface's version of the method takes precedence.
+
+It is possible to explicity refer to a default implementation in an inherited interface by using this form of **super**. Its general form is shown here:
+
+```java
+InterfaceName.super.methodName();
+```
 
 ## Use static Methods in an Interface
 
+Another added capability to interfaces is the ability to define one or more static methods. A static method defined in an interface can be called independently of any object. Thus, no implementation of the interface is necessary and no instance of the interface is required in order to call a static method.
+
+We call a static method on an interface using the following general form similar to how we call one on a class.
+
+```java
+InterfaceName.staticMethodName();
+```
+
+Here we add a static method to MyIF
+
+```java
+public interface MyIF {
+    int getNumber();
+
+    default String getString() {
+        return "Default String";
+    }
+
+    static int getDefaultNumber() {
+        return 0;
+    }
+}
+```
+
+**static** interface methods are not inherited by either an implementing class or a subinterface.
+
 ## Private Interface Methods
 
-## Final Thoughts
+Starting in JDK9 an interface can include a private method. A private interface method can be called only by a default method or another private method defined by the same interface. Since a private interface method is private, it cannot be used by code outside the interface in which it is defined, this includes subinterfaces because private interface methods are not inherited by subinterfaces.
+
+The major benefit to a private interface method is that it lets two or more default methods use a common piece of code.
+
+```java
+interface IntStack {
+    void push(int item);
+    int pop();
+
+    // A default method that returns an array that contains
+    // the top n elements on the stack
+    default int[] popNElements(int n) {
+        // return the requested elements
+        return getElements(n);
+    }
+
+    // A default method that returns an array that contains
+    // the next n elements on the stack after skipping elements.
+    default int[] skipAndPopNElements(int skip, int n) {
+        // Skip the specified number of elements
+        getElements(skip);
+
+        // Return the requested elements
+        return getElements(n);
+    }
+
+    // A private method that returns an array containing the top n
+    // elements on the stack
+    private int[] getElements(int n) {
+        int[] elements = new int[n];
+        for(int i = 0; i < n; i++) elements[i] = pop();
+        return elements;
+    }
+}
+```
 
 (257)
