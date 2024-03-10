@@ -97,7 +97,9 @@ If you were to catch Exception before Arithmetic Exception in the previous examp
 
 ## Nested try Statements
 
-The **try** statement can be nested. Each time a **try** statemetn is entered, teh context of that exception is pushed onto the stack. If an inner try statement does not have a catch handler, then the stack is unwound and the next try statement's **catch** handlers are inspected for a match. This process continues until one of the **catch** statements succeeds, or until all of the nested try statements are exhaused. If no catch matches, then the Java run-time system will handle the exception. [NestTry](code/NestTry.java)
+The **try** statement can be nested. Each time a **try** statemetn is entered, teh context of that exception is pushed onto the stack. If an inner try statement does not have a catch handler, then the stack is unwound and the next try statement's **catch** handlers are inspected for a match. This process continues until one of the **catch** statements succeeds, or until all of the nested try statements are exhaused. If no catch matches, then the Java run-time system will handle the exception.
+
+[NestTry](code/NestTry.java) shows an example doing this.
 
 ## throw
 
