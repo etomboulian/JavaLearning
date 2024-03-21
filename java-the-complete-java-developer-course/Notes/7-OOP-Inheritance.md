@@ -352,3 +352,57 @@ Method Overriding:
 | \n              | Insert a new line character     |
 | \"              | Insert a double quote character |
 | \\              | Insert a backslash character    |
+
+## The String
+
+String is a sequence of characters, meaning that its characters are ordered and indexed starting from 0 . String has over 60 methods
+
+- String Inspection Methods
+- Methods for Comparing String values
+- String Manipulation Methods
+
+### String inspection methods
+
+String.
+length - Returns the number of characters in the string
+charAt - Returns the character at the index that is passed
+indexOf - Returns an integer, representing the index in the sequence where the String or character can be located in the String
+isEmpty - Returns true if length is zero
+isBlank - Returns true if the length is zer or the string only contains whitespace (Since JDK11)
+
+### String Comparison Methods
+
+String.
+contains - Returns a boolean if the String contains the argument passed
+endsWith - Returns a boolean if the String ends with the character/string searched for
+startsWith - Returns a boolean if the String starts with the character/string searched for
+regionMatches - Returns a boolean, if defined sub-regions are matched.
+
+### String Manipulation Methods
+
+| method                                               | description                                                                                                           |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| indent                                               | Adds or removes spaces from the beginning of lines <br> in multi-line text                                            |
+| strip <br> stripLeading <br> stripTrailing <br> trim | The difference between strip and trim methods is <br> that the strip() supports a larger set of whitespace characters |
+| toLowerCase <br> toUpperCase                         | Returns a new String, either in lower or upper case                                                                   |
+
+These methods transform the String value and return a String with a different meaning than the original string.
+
+| method                                    | description                                                                                        |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| concat                                    | Concatenates text to the String and returns the new String                                         |
+| join                                      | Allows multiple strings to be concatenated together in a single method with a delimiter            |
+| repeat                                    | Returns the String repeated by the number of times specified                                       |
+| replace <br> replaceAll <br> replaceFirst | These methods replace characters or strings within the string returning the new String as a result |
+| substring <br> subsequence                | Returns a part of the string defined by a numeric range                                            |
+
+## StringBuilder
+
+Creating Instances
+
+```java
+StringBuilder helloBuilder = new StringBuilder("Hello");
+StringBuilder emptyBuilder = new StringBuilder();
+StringBuilder emptyBuilder5 = new StringBuilder(5);
+StringBuilder stringBUilder = new StringBuilder(helloBuilder)
+```

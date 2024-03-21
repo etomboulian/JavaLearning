@@ -13,12 +13,33 @@ public class Main {
                             \u2022 Sub Point""";
         System.out.println(textBlock);
 
-        // Using printf to format a string
+        // Using printf to format a string, use the format specifier
+        // %d - decimal number | %f - float number | %n - newline
         int age = 35;
-        System.out.printf("Your age is %f%n", age);
+        System.out.printf("Your age is %d%n", age);
 
         int yearOfBirth = 2024 - age;
-        System.out.printf("Age = %d, Birth year = %d", age, yearOfBirth);
+        System.out.printf("Age = %d, Birth year = %d%n", age, yearOfBirth);
+
+        System.out.printf("Your age is %.2f%n", (float) age);
+
+        // left aligned
+        for (int i = 1; i <= 100000; i *= 10) {
+            System.out.printf("Printing %d %n", i);
+        }
+
+        // right aligned
+        for (int i = 1; i <= 100000; i *= 10) {
+            System.out.printf("Printing %6d %n", i);
+        }
+
+        // Formatting using String.format static method
+        String formattedString = String.format("Your age is %d", age);
+        System.out.println(formattedString);
+
+        // Formatting using the formatted instance method
+        formattedString = "Your age is %d".formatted(age);
+        System.out.println(formattedString);
 
 
     }
