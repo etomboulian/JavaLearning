@@ -15,4 +15,8 @@ Composition defines a HAS A relationship.
 
 Composition or Inheritance or Both?
 
-As a general rule, when you're designing your programs in Java, you want to prefer composition before implementing inheritance.
+As a general rule, when you're designing your programs in Java, you want to prefer composition before implementing inheritance. In the example we used both.
+
+- Composition is more flexible, you can add parts in, or remove them and these changes are less likely to have a downstream effect.
+- Composition provides functional reuse outside the of the class hierarchy. Classes can share attributes and behaviour by having similar components.
+- Java's inheritance breaks encapsulation, because subclasses may need direct access to a parent's state or behaviour.
